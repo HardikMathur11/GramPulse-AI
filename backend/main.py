@@ -31,6 +31,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def read_root():
+    return {"status": "online", "message": "GramPulse AI API Server is running."}
+
+@app.get("/api/health")
+def health_check():
+    return {"status": "ok", "mock_db": is_mock_db()}
+
 # ─────────────────────────────────────────────────────────────────────────────
 # GROQ / GROK AI SETUP  (llama-3.3-70b-versatile)
 # ─────────────────────────────────────────────────────────────────────────────
