@@ -1,0 +1,6 @@
+{
+  "name": "GramPulse AI",
+  "description": "Offline-First AI Financial Health Assistant for small-scale rural businesses, predicting cash flow risks and simplifying alerts.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
