@@ -780,81 +780,72 @@ export default function App() {
           /* 3. Main Dashboard Layout */
           <div className="flex-1 flex flex-col sm:flex-row min-h-screen pt-0 sm:pt-14 w-full overflow-hidden">
 
-            {/* SIDEBAR NAVIGATION (Unified SaaS Desktop & Mobile Drawer) */}
+            {/* DESKTOP SIDEBAR NAVIGATION */}
             {currentPersona !== 'field_officer' && (
-              <>
-                {mobileMenuOpen && (
-                  <div
-                    className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 sm:hidden"
-                    onClick={() => setMobileMenuOpen(false)}
-                  />
-                )}
-                <aside className={`${mobileMenuOpen ? 'flex fixed inset-y-0 left-0 z-50 pt-14 shadow-2xl' : 'hidden'} sm:flex w-64 bg-white border-r border-slate-200 flex-col justify-between shrink-0 p-5 font-sans text-slate-600 overflow-y-auto sticky top-14 h-[calc(100vh-3.5rem)]`}>
-                  <div className="space-y-8">
+              <aside className="hidden sm:flex w-64 bg-white border-r border-slate-200 flex-col justify-between shrink-0 p-5 font-sans text-slate-600 overflow-y-auto sticky top-14 h-[calc(100vh-3.5rem)]">
+                <div className="space-y-8">
 
-                    {/* Active Workspace Info Panel */}
-                    <div className="bg-slate-50 border border-slate-200 p-4.5 rounded-2xl">
-                      <div className="flex items-center gap-3">
-                        <img src={getAvatarUrl(currentPersona)} alt="Profile" className="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-sm" />
-                        <div className="min-w-0">
-                          <strong className="text-slate-900 text-xs block font-bold truncate">{activeProfile.ownerName}</strong>
-                          <span className="text-[9px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold inline-block mt-0.5 uppercase tracking-wide">
-                            {activeProfile.businessType}
-                          </span>
-                        </div>
+                  {/* Active Workspace Info Panel */}
+                  <div className="bg-slate-50 border border-slate-200 p-4.5 rounded-2xl">
+                    <div className="flex items-center gap-3">
+                      <img src={getAvatarUrl(currentPersona)} alt="Profile" className="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-sm" />
+                      <div className="min-w-0">
+                        <strong className="text-slate-900 text-xs block font-bold truncate">{activeProfile.ownerName}</strong>
+                        <span className="text-[9px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold inline-block mt-0.5 uppercase tracking-wide">
+                          {activeProfile.businessType}
+                        </span>
                       </div>
                     </div>
-
-                    {/* Sidebar Navigation Links */}
-                    <nav className="space-y-1">
-                      {[
-                        { screen: 'home', icon: <Home className="w-4 h-4" />, label: t('overviewPanel', 'Overview') },
-                        { screen: 'forecast', icon: <TrendingUp className="w-4 h-4" />, label: t('interactivePredictions', 'Forecast') },
-                        { screen: 'mandi', icon: <IndianRupee className="w-4 h-4" />, label: t('mandiPrices', 'Mandi Prices') },
-                        { screen: 'transactions', icon: <Receipt className="w-4 h-4" />, label: t('passbook', 'Passbook') },
-                        { screen: 'weather', icon: <CloudSun className="w-4 h-4" />, label: t('weatherIntel', 'Weather') },
-                        { screen: 'schemes', icon: <Award className="w-4 h-4" />, label: t('governmentSchemes', 'Gov. Schemes') },
-                        { screen: 'profile', icon: <User className="w-4 h-4" />, label: t('userProfile', 'Profile') },
-                        { screen: 'rbi-consent', icon: <Settings className="w-4 h-4" />, label: t('rbiConsent', 'RBI Consent') },
-                        { screen: 'debt-strategy', icon: <CreditCard className="w-4 h-4" />, label: t('debtStrategy', 'Debt Strategy') },
-                        { screen: 'risk-analysis', icon: <Shield className="w-4 h-4" />, label: t('riskAnalysis', 'Risk Analysis') },
-                      ].map(({ screen, icon, label }) => (
-                        <button
-                          key={screen}
-                          onClick={() => { setActiveScreen(screen); setMobileMenuOpen(false); }}
-                          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm transition-all ${
-                            activeScreen === screen
-                              ? 'bg-emerald-50 text-emerald-700 shadow-sm border-l-4 border-emerald-600 font-bold'
-                              : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
-                          }`}
-                        >
-                          <span className="shrink-0">{icon}</span>
-                          <span className="capitalize">{label}</span>
-                        </button>
-                      ))}
-                    </nav>
                   </div>
 
-                  {/* Sidebar bottom action */}
-                  <div className="space-y-4">
-                    <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl text-center space-y-1.5">
-                      <span className="text-[9px] text-slate-400 uppercase tracking-widest font-bold font-mono">{t('syncStatus')}</span>
-                      <span className="text-[10px] text-emerald-600 font-bold block font-mono">{t('liveSyncApi')}</span>
-                    </div>
-                    <button
-                      onClick={() => {
-                        setIsAuthenticated(false);
-                        setHasOnboarded(false);
-                        setActiveScreen('home');
-                        setMobileMenuOpen(false);
-                      }}
-                      className="w-full text-center py-3 bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-800 font-bold text-xs rounded-xl transition border border-slate-200"
-                    >
-                      {t('logOutAccount')}
-                    </button>
+                  {/* Sidebar Navigation Links */}
+                  <nav className="space-y-1">
+                    {[
+                      { screen: 'home', icon: <Home className="w-4 h-4" />, label: t('overviewPanel', 'Overview') },
+                      { screen: 'forecast', icon: <TrendingUp className="w-4 h-4" />, label: t('interactivePredictions', 'Forecast') },
+                      { screen: 'mandi', icon: <IndianRupee className="w-4 h-4" />, label: t('mandiPrices', 'Mandi Prices') },
+                      { screen: 'transactions', icon: <Receipt className="w-4 h-4" />, label: t('passbook', 'Passbook') },
+                      { screen: 'weather', icon: <CloudSun className="w-4 h-4" />, label: t('weatherIntel', 'Weather') },
+                      { screen: 'schemes', icon: <Award className="w-4 h-4" />, label: t('governmentSchemes', 'Gov. Schemes') },
+                      { screen: 'profile', icon: <User className="w-4 h-4" />, label: t('userProfile', 'Profile') },
+                      { screen: 'rbi-consent', icon: <Settings className="w-4 h-4" />, label: t('rbiConsent', 'RBI Consent') },
+                      { screen: 'debt-strategy', icon: <CreditCard className="w-4 h-4" />, label: t('debtStrategy', 'Debt Strategy') },
+                      { screen: 'risk-analysis', icon: <Shield className="w-4 h-4" />, label: t('riskAnalysis', 'Risk Analysis') },
+                    ].map(({ screen, icon, label }) => (
+                      <button
+                        key={screen}
+                        onClick={() => setActiveScreen(screen)}
+                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm transition-all ${
+                          activeScreen === screen
+                            ? 'bg-emerald-50 text-emerald-700 shadow-sm border-l-4 border-emerald-600 font-bold'
+                            : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                        }`}
+                      >
+                        <span className="shrink-0">{icon}</span>
+                        <span className="capitalize">{label}</span>
+                      </button>
+                    ))}
+                  </nav>
+                </div>
+
+                {/* Sidebar bottom action */}
+                <div className="space-y-4">
+                  <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl text-center space-y-1.5">
+                    <span className="text-[9px] text-slate-400 uppercase tracking-widest font-bold font-mono">{t('syncStatus')}</span>
+                    <span className="text-[10px] text-emerald-600 font-bold block font-mono">{t('liveSyncApi')}</span>
                   </div>
-                </aside>
-              </>
+                  <button
+                    onClick={() => {
+                      setIsAuthenticated(false);
+                      setHasOnboarded(false);
+                      setActiveScreen('home');
+                    }}
+                    className="w-full text-center py-3 bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-800 font-bold text-xs rounded-xl transition border border-slate-200"
+                  >
+                    {t('logOutAccount')}
+                  </button>
+                </div>
+              </aside>
             )}
 
             {/* MAIN WEB VIEW AREA */}
@@ -936,6 +927,71 @@ export default function App() {
                   </div>
                 </header>
               )}
+
+              {/* MOBILE UPSIDE-DOWN TOP HAMBURGER MENU DROPDOWN */}
+              <AnimatePresence>
+                {mobileMenuOpen && currentPersona !== 'field_officer' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.2 }}
+                    className="sm:hidden bg-white border-b border-slate-200 shadow-2xl z-40 p-4 space-y-4 font-sans sticky top-[3.6rem]"
+                    id="mobile-top-dropdown-menu"
+                  >
+                    <div className="bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <img src={getAvatarUrl(currentPersona)} alt="Profile" className="w-9 h-9 rounded-full object-cover border border-slate-200" />
+                        <div>
+                          <strong className="text-slate-900 text-xs block font-bold truncate max-w-[140px]">{activeProfile.ownerName}</strong>
+                          <span className="text-[9px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold inline-block uppercase">
+                            {activeProfile.businessType}
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => {
+                          setIsAuthenticated(false);
+                          setHasOnboarded(false);
+                          setActiveScreen('home');
+                          setMobileMenuOpen(false);
+                        }}
+                        className="px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-100 text-slate-600 font-bold text-xs rounded-lg transition"
+                      >
+                        {t('logOutAccount', 'Sign Out')}
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { screen: 'home', icon: <Home className="w-4 h-4" />, label: t('overviewPanel', 'Overview') },
+                        { screen: 'forecast', icon: <TrendingUp className="w-4 h-4" />, label: t('interactivePredictions', 'Forecast') },
+                        { screen: 'mandi', icon: <IndianRupee className="w-4 h-4" />, label: t('mandiPrices', 'Mandi Prices') },
+                        { screen: 'transactions', icon: <Receipt className="w-4 h-4" />, label: t('passbook', 'Passbook') },
+                        { screen: 'weather', icon: <CloudSun className="w-4 h-4" />, label: t('weatherIntel', 'Weather') },
+                        { screen: 'schemes', icon: <Award className="w-4 h-4" />, label: t('governmentSchemes', 'Gov. Schemes') },
+                        { screen: 'profile', icon: <User className="w-4 h-4" />, label: t('userProfile', 'Profile') },
+                        { screen: 'rbi-consent', icon: <Settings className="w-4 h-4" />, label: t('rbiConsent', 'RBI Consent') },
+                        { screen: 'debt-strategy', icon: <CreditCard className="w-4 h-4" />, label: t('debtStrategy', 'Debt Strategy') },
+                        { screen: 'risk-analysis', icon: <Shield className="w-4 h-4" />, label: t('riskAnalysis', 'Risk Analysis') },
+                      ].map(({ screen, icon, label }) => (
+                        <button
+                          key={screen}
+                          onClick={() => { setActiveScreen(screen); setMobileMenuOpen(false); }}
+                          className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-semibold text-xs transition-all ${
+                            activeScreen === screen
+                              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold'
+                              : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                          }`}
+                        >
+                          <span className="shrink-0">{icon}</span>
+                          <span className="capitalize">{label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* SCREEN RENDERING WRAPPER */}
               <div className="flex-1 p-3 sm:p-6 md:p-8 overflow-x-hidden pb-20 sm:pb-8" id="app-screen-renderer">

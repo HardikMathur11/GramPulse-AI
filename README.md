@@ -29,7 +29,7 @@ In India's rural economy, over **100 million micro-entrepreneurs** — including
 
 ---
 
-## 💻 Comprehensive Technology Stack
+## 💻 Technology Stack
 
 ### 🖥️ Frontend
 - **Next.js (React)** — Server-Side Rendering & Client Dashboard Framework
@@ -197,16 +197,6 @@ cd frontend
 npm install
 npm run dev
 ```
-
----
-
-## 🌐 Production Deployment
-
-### Frontend (Vercel)
-1. Import repository `HardikMathur11/GramPulse-AI` into [Vercel](https://vercel.com/new).
-2. Set Root Directory to `frontend`.
-3. Set `VITE_API_BASE_URL` in Environment Variables.
-4. Deploy project.
 
 ---
 
