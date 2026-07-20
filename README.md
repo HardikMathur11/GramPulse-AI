@@ -1,6 +1,6 @@
-# GramPulse AI — Credit Wellness & Cash Flow Intelligence Platform for Rural Micro-Enterprises
+# ★ GramPulse AI — Credit Wellness & Cash Flow Intelligence Platform
 
-> **Empowering 100M+ Rural Micro-Entrepreneurs in India with AI-Driven Cash Flow Forecasting, ARIMA Time-Series Risk Modeling, RBI Account Aggregator Consent Sync, and Multilingual Voice Assistance.**
+> **An Enterprise-Grade AI Platform for Rural Micro-Enterprises Ingesting Passive Bank Alert Consent Data, Executing ARIMA Time-Series Risk Forecasting, Modeling IMD Thermal Yield Stress, and Generating Multilingual Debt Restructuring Advisory.**
 
 ---
 
@@ -14,7 +14,7 @@
 
 ---
 
-## Executive Summary & Motivation
+## ★ Executive Summary & Core Motivation
 
 In India's rural economy, over **100 million micro-entrepreneurs** — including dairy farmers, kirana store owners, poultry operators, agri-traders, and local artisans — operate on hyper-local cash flows. Despite generating steady revenue, they face critical financial vulnerability due to:
 
@@ -29,7 +29,173 @@ In India's rural economy, over **100 million micro-entrepreneurs** — including
 
 ---
 
-## Technology Stack
+## ★ Detailed Architecture Flowchart
+
+```mermaid
+graph TD
+    %% User Interfaces Layer
+    subgraph UI_Layer ["Client & Presentation Layer"]
+        A1["Web Client (Next.js / React 18 / Tailwind CSS)"]
+        A2["Mobile Application (Flutter / Hive Offline Storage)"]
+        A3["Field Officer Audit Portal"]
+    end
+
+    %% Gateway & Authentication Layer
+    subgraph Security_Layer ["API Gateway & Security Layer"]
+        B1["HTTPS / SSL Certificate Termination"]
+        B2["Firebase Auth / JWT / OTP Service"]
+        B3["RBI Account Aggregator (AA) Consent Manager"]
+    end
+
+    %% Backend Services Layer
+    subgraph Core_Services ["Backend Application Layer (NestJS / FastAPI)"]
+        C1["Profile & Onboarding Service"]
+        C2["SMS Alert Ingress & Parser Engine"]
+        C3["ARIMA Cash Runway Forecasting Engine"]
+        C4["IMD Climate Thermal Stress Calculator"]
+        C5["AI Debt Restructuring & EMI Matcher"]
+        C6["Mandi Price Aggregator Engine"]
+    end
+
+    %% AI & Analytics Layer
+    subgraph AI_Layer ["AI & Intelligence Processing Layer"]
+        D1["Groq AI / Llama 3.3 70B (Primary LLM)"]
+        D2["Google Gemini 1.5 Flash (Fallback LLM)"]
+        D3["OpenAI Whisper (Speech-to-Text)"]
+        D4["Scikit-learn / XGBoost Price Predictor"]
+    end
+
+    %% Data Persistence Layer
+    subgraph Database_Layer ["Persistence & Storage Layer"]
+        E1[("MongoDB Atlas / PostgreSQL Core DB")]
+        E2[("Redis In-Memory Cache & Lock Store")]
+        E3[("Cryptographic Audit Log Store")]
+    end
+
+    %% External Systems & Third-Party APIs
+    subgraph External_APIs ["External Data Sources & Integrations"]
+        F1["RBI Account Aggregator Ecosystem"]
+        F2["IMD Meteorological Weather API"]
+        F3["Agmarknet APMC Mandi Rates Feed"]
+    end
+
+    %% Connections
+    A1 -->|REST / HTTPS| B1
+    A2 -->|REST / WebSockets| B1
+    A3 -->|REST / HTTPS| B1
+
+    B1 --> B2
+    B1 --> B3
+    B2 --> C1
+    B3 --> C2
+
+    C1 --> E1
+    C2 --> E1
+    C2 --> E2
+    
+    C3 --> D4
+    C3 --> E1
+    C4 --> F2
+    C6 --> F3
+
+    C3 --> D1
+    C5 --> D1
+    D1 -.->|Fallback| D2
+    
+    A1 -->|Voice Audio Stream| D3
+    D3 --> C5
+
+    F1 --> B3
+    C1 --> E3
+```
+
+---
+
+## ★ System Workflows & Data Pipelines
+
+### Workflow 1: Micro-Enterprise Onboarding & RBI Consent Pipeline
+```text
+[Farmer / Kirana Owner] 
+        │
+        ▼
+[1. Select Language (EN/HI/MR/GU/TE)]
+        │
+        ▼
+[2. Phone OTP Authentication (Firebase)]
+        │
+        ▼
+[3. Input Profile Metadata (Village, Business Sector, Cow Count)]
+        │
+        ▼
+[4. Grant RBI Account Aggregator (AA) Passive SMS & Bank Consent]
+        │
+        ▼
+[5. Initialize Cryptographic Data Access Audit Log & Local Cache]
+```
+
+---
+
+### Workflow 2: Passive Transaction Ingestion & Ledger Reconciler
+```text
+[Bank SMS / UPI Payment Received on Device]
+        │
+        ▼
+[Regex & NLP Parsing Engine (Extract Amount, Date, Source, Type)]
+        │
+        ▼
+[Duplicate Transaction Detection Algorithm]
+        │
+        ▼
+[Reconcile Cash Balance in MongoDB / PostgreSQL]
+        │
+        ▼
+[Trigger Automatic Financial Health Score & Runway Recalculation]
+```
+
+---
+
+### Workflow 3: ARIMA Cash Flow Forecasting & Thermal Stress Modeling
+```text
+[Historical 90-Day Transaction Stream + Pending EMI Liabilities]
+        │
+        ▼
+[Execute ARIMA Time-Series Fit (Auto-ARIMA (p,d,q))]
+        │
+        ▼
+[Fetch 7-Day Local IMD Weather Forecast (Temperature & Rainfall)]
+        │
+        ▼
+[Apply Heat Stress Function: Yield Loss = (Temp - 34) * 4% if Temp >= 35°C]
+        │
+        ▼
+[Generate Adjusted 30/60/90-Day Liquidity Projection Curve]
+```
+
+---
+
+### Workflow 4: AI Debt Restructuring & Payment Matching Engine
+```text
+[Select Upcoming EMI Due Date (e.g. ₹7,500 Tractor EMI on July 26)]
+        │
+        ▼
+[Calculate Forecasted Cash Balance Prior to Due Date]
+        │
+        ▼
+[Add Incoming Expected Milk Society Payouts (e.g. ₹8,200 on July 22)]
+        │
+        ▼
+[Compute Net Cash Safety Margin]
+        │
+        ├───────────────────────────┬───────────────────────────┐
+        ▼                           ▼                           ▼
+[Surplus >= ₹3,000]         [Surplus ₹0 - ₹3,000]        [Deficit < ₹0]
+    🟢 Status: SAFE             🟡 Status: WARNING          🔴 Status: URGENT
+(Prompt payment advice)    (Save ₹400/day warning)    (Refinancing / KCC restructuring)
+```
+
+---
+
+## ★ Technology Stack
 
 ### Frontend
 - **Next.js (React)** — Server-Side Rendering & Client Dashboard Framework
@@ -92,7 +258,7 @@ In India's rural economy, over **100 million micro-entrepreneurs** — including
 
 ---
 
-## Core Features & Capabilities
+## ★ Core Features & Capabilities
 
 | Module | Purpose | Technical Implementation |
 |:---|:---|:---|
@@ -109,7 +275,7 @@ In India's rural economy, over **100 million micro-entrepreneurs** — including
 
 ---
 
-## Regional Language Support
+## ★ Regional Language Support
 
 GramPulse AI supports **5 major Indian languages**:
 - **English** (`en`)
@@ -120,7 +286,7 @@ GramPulse AI supports **5 major Indian languages**:
 
 ---
 
-## Mathematical Models & Analytical Logic
+## ★ Mathematical Models & Analytical Logic
 
 ### 1. Financial Health Score Index
 $$\text{Health Score} = 100 - (30 - \text{Runway Days}) \times 2 - (\text{DTI Ratio} - 40) \times 0.5$$
@@ -152,14 +318,14 @@ $$\text{Yield Loss \%} = \begin{cases} 0\% & \text{if Temperature } < 35^\circ\t
 
 ---
 
-## Future Roadmap & Innovations
+## ★ Future Roadmap & Innovations
 
 - **Blockchain Integration (Hyperledger Fabric / Polygon)** — Immutable cryptographic ledger for credit identity verification & peer-to-peer micro-lending.
 - **QR Code & NFC Integration** — Instant offline payment verification & receipt digitization at local APMC mandis.
 
 ---
 
-## Local Environment & Setup Guide
+## ★ Local Environment & Setup Guide
 
 ### Prerequisites
 - **Node.js**: `v18.0.0` or higher
@@ -200,7 +366,7 @@ npm run dev
 
 ---
 
-## License
+## ★ License
 
 This project is licensed under the **Apache 2.0 License**.
 
