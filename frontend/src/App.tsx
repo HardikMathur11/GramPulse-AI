@@ -780,154 +780,122 @@ export default function App() {
           /* 3. Main Dashboard Layout */
           <div className="flex-1 flex flex-col sm:flex-row min-h-screen pt-0 sm:pt-14 w-full overflow-hidden">
 
-            {/* DESKTOP SIDEBAR NAVIGATION (Classic SaaS Light Theme) */}
+            {/* SIDEBAR NAVIGATION (Unified SaaS Desktop & Mobile Drawer) */}
             {currentPersona !== 'field_officer' && (
-              <aside className="hidden sm:flex w-64 bg-white border-r border-slate-200 flex-col justify-between shrink-0 p-5 font-sans text-slate-600 overflow-y-auto sticky top-14 h-[calc(100vh-3.5rem)]">
-                <div className="space-y-8">
+              <>
+                {mobileMenuOpen && (
+                  <div
+                    className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 sm:hidden"
+                    onClick={() => setMobileMenuOpen(false)}
+                  />
+                )}
+                <aside className={`${mobileMenuOpen ? 'flex fixed inset-y-0 left-0 z-50 pt-14 shadow-2xl' : 'hidden'} sm:flex w-64 bg-white border-r border-slate-200 flex-col justify-between shrink-0 p-5 font-sans text-slate-600 overflow-y-auto sticky top-14 h-[calc(100vh-3.5rem)]`}>
+                  <div className="space-y-8">
 
-                  {/* Active Workspace Info Panel */}
-                  <div className="bg-slate-50 border border-slate-200 p-4.5 rounded-2xl">
-                    <div className="flex items-center gap-3">
-                      <img src={getAvatarUrl(currentPersona)} alt="Profile" className="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-sm" />
-                      <div className="min-w-0">
-                        <strong className="text-slate-900 text-xs block font-bold truncate">{activeProfile.ownerName}</strong>
-                        <span className="text-[9px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold inline-block mt-0.5 uppercase tracking-wide">
-                          {activeProfile.businessType}
-                        </span>
+                    {/* Active Workspace Info Panel */}
+                    <div className="bg-slate-50 border border-slate-200 p-4.5 rounded-2xl">
+                      <div className="flex items-center gap-3">
+                        <img src={getAvatarUrl(currentPersona)} alt="Profile" className="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-sm" />
+                        <div className="min-w-0">
+                          <strong className="text-slate-900 text-xs block font-bold truncate">{activeProfile.ownerName}</strong>
+                          <span className="text-[9px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold inline-block mt-0.5 uppercase tracking-wide">
+                            {activeProfile.businessType}
+                          </span>
+                        </div>
                       </div>
                     </div>
+
+                    {/* Sidebar Navigation Links */}
+                    <nav className="space-y-1">
+                      {[
+                        { screen: 'home', icon: <Home className="w-4 h-4" />, label: t('overviewPanel', 'Overview') },
+                        { screen: 'forecast', icon: <TrendingUp className="w-4 h-4" />, label: t('interactivePredictions', 'Forecast') },
+                        { screen: 'mandi', icon: <IndianRupee className="w-4 h-4" />, label: t('mandiPrices', 'Mandi Prices') },
+                        { screen: 'transactions', icon: <Receipt className="w-4 h-4" />, label: t('passbook', 'Passbook') },
+                        { screen: 'weather', icon: <CloudSun className="w-4 h-4" />, label: t('weatherIntel', 'Weather') },
+                        { screen: 'schemes', icon: <Award className="w-4 h-4" />, label: t('governmentSchemes', 'Gov. Schemes') },
+                        { screen: 'profile', icon: <User className="w-4 h-4" />, label: t('userProfile', 'Profile') },
+                        { screen: 'rbi-consent', icon: <Settings className="w-4 h-4" />, label: t('rbiConsent', 'RBI Consent') },
+                        { screen: 'debt-strategy', icon: <CreditCard className="w-4 h-4" />, label: t('debtStrategy', 'Debt Strategy') },
+                        { screen: 'risk-analysis', icon: <Shield className="w-4 h-4" />, label: t('riskAnalysis', 'Risk Analysis') },
+                      ].map(({ screen, icon, label }) => (
+                        <button
+                          key={screen}
+                          onClick={() => { setActiveScreen(screen); setMobileMenuOpen(false); }}
+                          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm transition-all ${
+                            activeScreen === screen
+                              ? 'bg-emerald-50 text-emerald-700 shadow-sm border-l-4 border-emerald-600 font-bold'
+                              : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                          }`}
+                        >
+                          <span className="shrink-0">{icon}</span>
+                          <span className="capitalize">{label}</span>
+                        </button>
+                      ))}
+                    </nav>
                   </div>
 
-                  {/* Sidebar Navigation Links */}
-                  <nav className="space-y-1">
-                    {[
-                      { screen: 'home', icon: <Home className="w-4 h-4" />, label: t('overviewPanel', 'Overview') },
-                      { screen: 'forecast', icon: <TrendingUp className="w-4 h-4" />, label: t('interactivePredictions', 'Forecast') },
-                      { screen: 'mandi', icon: <IndianRupee className="w-4 h-4" />, label: t('mandiPrices', 'Mandi Prices') },
-                      { screen: 'transactions', icon: <Receipt className="w-4 h-4" />, label: t('passbook', 'Passbook') },
-                      { screen: 'weather', icon: <CloudSun className="w-4 h-4" />, label: t('weatherIntel', 'Weather') },
-                      { screen: 'schemes', icon: <Award className="w-4 h-4" />, label: t('governmentSchemes', 'Gov. Schemes') },
-                      { screen: 'profile', icon: <User className="w-4 h-4" />, label: t('userProfile', 'Profile') },
-                      { screen: 'rbi-consent', icon: <Settings className="w-4 h-4" />, label: t('rbiConsent', 'RBI Consent') },
-                      { screen: 'debt-strategy', icon: <CreditCard className="w-4 h-4" />, label: t('debtStrategy', 'Debt Strategy') },
-                      { screen: 'risk-analysis', icon: <Shield className="w-4 h-4" />, label: t('riskAnalysis', 'Risk Analysis') },
-                    ].map(({ screen, icon, label }) => (
-                      <button
-                        key={screen}
-                        onClick={() => setActiveScreen(screen)}
-                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm transition-all ${
-                          activeScreen === screen
-                            ? 'bg-emerald-50 text-emerald-700 shadow-sm border-l-4 border-emerald-600 font-bold'
-                            : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
-                        }`}
-                      >
-                        <span className="shrink-0">{icon}</span>
-                        <span className="capitalize">{label}</span>
-                      </button>
-                    ))}
-                  </nav>
-                </div>
-
-                {/* Sidebar bottom action */}
-                <div className="space-y-4">
-                  <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl text-center space-y-1.5">
-                    <span className="text-[9px] text-slate-400 uppercase tracking-widest font-bold font-mono">{t('syncStatus')}</span>
-                    <span className="text-[10px] text-emerald-600 font-bold block font-mono">{t('liveSyncApi')}</span>
+                  {/* Sidebar bottom action */}
+                  <div className="space-y-4">
+                    <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl text-center space-y-1.5">
+                      <span className="text-[9px] text-slate-400 uppercase tracking-widest font-bold font-mono">{t('syncStatus')}</span>
+                      <span className="text-[10px] text-emerald-600 font-bold block font-mono">{t('liveSyncApi')}</span>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setIsAuthenticated(false);
+                        setHasOnboarded(false);
+                        setActiveScreen('home');
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full text-center py-3 bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-800 font-bold text-xs rounded-xl transition border border-slate-200"
+                    >
+                      {t('logOutAccount')}
+                    </button>
                   </div>
-                  <button
-                    onClick={() => {
-                      setIsAuthenticated(false);
-                      setHasOnboarded(false);
-                      setActiveScreen('home');
-                    }}
-                    className="w-full text-center py-3 bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-800 font-bold text-xs rounded-xl transition border border-slate-200"
-                  >
-                    {t('logOutAccount')}
-                  </button>
-                </div>
-              </aside>
+                </aside>
+              </>
             )}
 
             {/* MAIN WEB VIEW AREA */}
             <div className="flex-1 flex flex-col min-w-0 bg-[#F8FAFC] overflow-y-auto" id="app-main-view">
 
-              {/* MOBILE ONLY WEBSITE NAVBAR (hidden on desktop) */}
+              {/* UNIFIED WEBSITE HEADER (Identical Desktop & Mobile Styling) */}
               {currentPersona !== 'field_officer' && (
-                <nav className="flex sm:hidden bg-white text-slate-900 px-4 py-3 items-center justify-between border-b border-slate-200 sticky top-0 z-40 shadow-xs" id="app-header">
-                  <div className="flex items-center gap-2.5">
+                <header className="flex bg-white border-b border-slate-150 px-4 sm:px-8 py-3.5 sm:py-4 items-center justify-between shadow-xs sticky top-0 z-30 font-sans" id="app-header">
+                  <div className="flex items-center gap-3">
                     <button
                       onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                      className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-700 transition active:scale-95"
-                      aria-label="Toggle Navigation Menu"
+                      className="sm:hidden p-2 hover:bg-slate-100 rounded-xl transition text-slate-700"
+                      aria-label="Toggle navigation menu"
                     >
                       {mobileMenuOpen ? <X className="w-5 h-5 text-emerald-700" /> : <Menu className="w-5 h-5 text-slate-700" />}
                     </button>
-                    <div className="flex items-center gap-1.5" onClick={() => setActiveScreen('home')}>
-                      <div className="w-7 h-7 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-black text-xs shadow-xs">
-                        GP
-                      </div>
-                      <span className="font-extrabold text-sm tracking-tight text-slate-900 font-display">GramPulse <span className="text-emerald-600">AI</span></span>
+                    <div>
+                      <h2 className="text-sm sm:text-base font-extrabold text-slate-900 font-display capitalize">
+                        {activeScreen === 'home' ? t('enterpriseDashboard') :
+                          activeScreen === 'forecast' ? t('scenarioForecastTitle') :
+                            activeScreen === 'mandi' ? t('mandiIntelTitle') :
+                              activeScreen === 'transactions' ? t('passbookTitle') :
+                                activeScreen === 'weather' ? t('weatherPortalTitle') :
+                                  activeScreen === 'schemes' ? t('schemesTitle') :
+                                    activeScreen === 'profile' ? t('profileMgmtTitle') :
+                                      activeScreen === 'rbi-consent' ? t('rbiConsentTitle') :
+                                        activeScreen === 'debt-strategy' ? t('debtStrategyTitle') :
+                                          activeScreen === 'risk-analysis' ? t('riskAnalysisTitle') :
+                                            activeScreen === 'alerts' ? t('recentAlertsTitle') :
+                                              activeScreen === 'register' ? t('registerBusiness', 'Register Micro-Enterprise') :
+                                                activeScreen.charAt(0).toUpperCase() + activeScreen.slice(1).replace(/-/g, ' ')}
+                      </h2>
+                      <p className="text-[10px] sm:text-[11px] text-slate-400 font-sans mt-0.5">
+                        Monitoring Active Unit: <span className="font-bold text-slate-700">{activeProfile.businessName}</span> • Village Cluster: <span className="font-bold text-slate-700">{activeProfile.village}</span>
+                      </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <select
-                      value={selectedLang}
-                      onChange={(e) => setSelectedLang(e.target.value as LanguageCode)}
-                      className="bg-slate-50 border border-slate-200 text-[#2E7D32] rounded-lg px-2 py-1 focus:outline-none font-bold text-xs cursor-pointer"
-                    >
-                      <option value="en">EN</option>
-                      <option value="hi">हिंदी</option>
-                      <option value="mr">मरा</option>
-                      <option value="gu">ગુજ</option>
-                      <option value="te">తెలు</option>
-                    </select>
-
-                    <button
-                      onClick={() => setActiveScreen('alerts')}
-                      className="p-1.5 hover:bg-slate-100 rounded-lg transition relative text-slate-600"
-                    >
-                      <Bell className="w-4 h-4" />
-                      {alerts.length > 0 && <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />}
-                    </button>
-
-                    <img 
-                      src={getAvatarUrl(currentPersona)} 
-                      alt="Profile" 
-                      onClick={() => setActiveScreen('profile')} 
-                      className="w-8 h-8 rounded-full object-cover cursor-pointer border border-emerald-500 hover:shadow-md transition-shadow" 
-                    />
-                  </div>
-                </nav>
-              )}
-
-              {/* DESKTOP HEADER (hidden on mobile) */}
-              {currentPersona !== 'field_officer' && (
-                <header className="hidden sm:flex bg-white border-b border-slate-150 px-8 py-4 items-center justify-between shadow-sm sticky top-0 z-30 font-sans">
-                  <div>
-                    <h2 className="text-base font-extrabold text-slate-900 font-display capitalize">
-                      {activeScreen === 'home' ? t('enterpriseDashboard') :
-                        activeScreen === 'forecast' ? t('scenarioForecastTitle') :
-                          activeScreen === 'mandi' ? t('mandiIntelTitle') :
-                            activeScreen === 'transactions' ? t('passbookTitle') :
-                              activeScreen === 'weather' ? t('weatherPortalTitle') :
-                                activeScreen === 'schemes' ? t('schemesTitle') :
-                                  activeScreen === 'profile' ? t('profileMgmtTitle') :
-                                    activeScreen === 'rbi-consent' ? t('rbiConsentTitle') :
-                                      activeScreen === 'debt-strategy' ? t('debtStrategyTitle') :
-                                        activeScreen === 'risk-analysis' ? t('riskAnalysisTitle') :
-                                          activeScreen === 'alerts' ? t('recentAlertsTitle') :
-                                            activeScreen === 'register' ? t('registerBusiness', 'Register Micro-Enterprise') :
-                                              activeScreen.charAt(0).toUpperCase() + activeScreen.slice(1).replace(/-/g, ' ')}
-                    </h2>
-                    <p className="text-[11px] text-slate-400 font-sans mt-0.5">
-                      Monitoring Active Unit: <span className="font-bold text-slate-700">{activeProfile.businessName}</span> • Village Cluster: <span className="font-bold text-slate-700">{activeProfile.village}</span>
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 sm:gap-4">
                     {/* Master Data Timestamp Indicator */}
-                    <div className="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold text-slate-600 flex items-center gap-1.5 shadow-sm">
+                    <div className="hidden md:flex bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold text-slate-600 items-center gap-1.5 shadow-xs">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                       <span>{t('dataAsOf')} {activeProfile.asOfTimestamp || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • 🟢 {t('masterSynced')}</span>
                     </div>
@@ -935,35 +903,35 @@ export default function App() {
                     {/* Dialect companion call script */}
                     <button
                       onClick={() => triggerVoiceSpeechAlert(alerts[0]?.voiceAudioText || "Sab theek hai. Apni bachat badhane ke liye forecast check karein.")}
-                      className="bg-orange-500/10 hover:bg-orange-500/15 text-orange-700 border border-orange-200/50 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+                      className="hidden sm:flex bg-orange-500/10 hover:bg-orange-500/15 text-orange-700 border border-orange-200/50 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold transition items-center gap-1.5"
                     >
                       <Volume2 className="w-4 h-4 text-orange-600" />
-                      <span>Dial-In companion Call (English/Dialect)</span>
+                      <span>Dial-In Call</span>
                     </button>
 
                     {/* Language switch */}
-                    <div className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold flex items-center gap-1 text-slate-650 shadow-sm">
-                      <span className="text-slate-400">Language:</span>
+                    <div className="bg-slate-50 border border-slate-200 rounded-xl px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs font-bold flex items-center gap-1 text-slate-650 shadow-xs">
+                      <span className="text-slate-400 hidden sm:inline">Language:</span>
                       <select
                         value={selectedLang}
                         onChange={(e) => setSelectedLang(e.target.value as LanguageCode)}
                         className="bg-transparent text-emerald-600 focus:outline-none font-bold pr-1 cursor-pointer"
                       >
-                        <option value="en">English (EN)</option>
-                        <option value="hi">हिन्दी (HI)</option>
-                        <option value="mr">मराठी (MR)</option>
-                        <option value="gu">ગુજરાતી (GU)</option>
-                        <option value="te">తెలుగు (TE)</option>
+                        <option value="en">EN</option>
+                        <option value="hi">HI</option>
+                        <option value="mr">MR</option>
+                        <option value="gu">GU</option>
+                        <option value="te">TE</option>
                       </select>
                     </div>
 
-                    {/* Desktop Alerts quick link */}
+                    {/* Alerts quick link */}
                     <button
                       onClick={() => setActiveScreen('alerts')}
-                      className="p-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl transition relative border border-slate-200 shadow-sm"
+                      className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl transition relative border border-slate-200 shadow-xs text-slate-600"
                     >
-                      <Bell className="w-4 h-4 text-slate-600" />
-                      {alerts.length > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />}
+                      <Bell className="w-4 h-4" />
+                      {alerts.length > 0 && <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />}
                     </button>
                   </div>
                 </header>
@@ -2799,120 +2767,7 @@ export default function App() {
                 )}
               </div>
 
-              {/* MOBILE ONLY BOTTOM NAVIGATION BAR */}
-              {currentPersona !== 'field_officer' && (
-                <>
-                  {/* More Menu Overlay - slide up drawer */}
-                  <AnimatePresence>
-                    {mobileMenuOpen && (
-                      <>
-                        {/* Backdrop */}
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          className="fixed inset-0 bg-black/40 z-40 sm:hidden"
-                          onClick={() => setMobileMenuOpen(false)}
-                        />
-                        {/* Drawer */}
-                        <motion.div
-                          initial={{ y: '100%' }}
-                          animate={{ y: 0 }}
-                          exit={{ y: '100%' }}
-                          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                          className="fixed bottom-16 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-50 sm:hidden border-t border-slate-100 pb-4"
-                          id="mobile-more-drawer"
-                        >
-                          <div className="flex justify-center pt-3 pb-2">
-                            <div className="w-10 h-1 bg-slate-200 rounded-full" />
-                          </div>
-                          <div className="px-4 pb-2">
-                            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">All Pages</h3>
-                            <div className="grid grid-cols-3 gap-2">
-                              {[
-                                { screen: 'weather', icon: '🌤️', label: t('weatherIntel', 'Weather') },
-                                { screen: 'schemes', icon: '🏛️', label: t('governmentSchemes', 'Schemes') },
-                                { screen: 'profile', icon: '👤', label: t('userProfile', 'Profile') },
-                                { screen: 'rbi-consent', icon: '🔒', label: t('rbiConsent', 'RBI Consent') },
-                                { screen: 'debt-strategy', icon: '💳', label: t('debtStrategy', 'Debt Strategy') },
-                                { screen: 'risk-analysis', icon: '🛡️', label: t('riskAnalysis', 'Risk Analysis') },
-                                { screen: 'alerts', icon: '🔔', label: t('recentAlertsTitle', 'Alerts') },
-                                { screen: 'register', icon: '➕', label: t('registerBusiness', 'Register') },
-                              ].map(({ screen, icon, label }) => (
-                                <button
-                                  key={screen}
-                                  onClick={() => { setActiveScreen(screen); setMobileMenuOpen(false); setIsChatOpen(false); }}
-                                  className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl text-center transition active:scale-95 ${
-                                    activeScreen === screen
-                                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                                      : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
-                                  }`}
-                                >
-                                  <span className="text-xl">{icon}</span>
-                                  <span className="text-[10px] font-bold leading-tight">{label}</span>
-                                </button>
-                              ))}
-                            </div>
-                            <div className="mt-3 border-t border-slate-100 pt-3">
-                              <button
-                                onClick={() => { setIsAuthenticated(false); setHasOnboarded(false); setActiveScreen('home'); setMobileMenuOpen(false); }}
-                                className="w-full flex items-center justify-center gap-2 py-3 bg-slate-50 hover:bg-slate-100 text-slate-500 font-bold text-sm rounded-xl transition"
-                              >
-                                <LogOut className="w-4 h-4" />
-                                <span>{t('logOutAccount', 'Sign Out')}</span>
-                              </button>
-                            </div>
-                          </div>
-                        </motion.div>
-                      </>
-                    )}
-                  </AnimatePresence>
-
-                  {/* Bottom Nav Bar */}
-                  <div className="flex sm:hidden bg-white border-t border-slate-100 px-2 py-1.5 justify-around items-center z-40 text-slate-800 shadow-lg sticky bottom-0" id="app-bottom-nav">
-                    <button
-                      onClick={() => { setActiveScreen('home'); setIsChatOpen(false); setMobileMenuOpen(false); }}
-                      className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition ${activeScreen === 'home' ? 'text-emerald-600' : 'text-slate-400'}`}
-                    >
-                      <Home className={`w-5 h-5 ${activeScreen === 'home' ? 'stroke-[2.5]' : ''}`} />
-                      <span className="text-[9px] font-bold">{t('overviewPanel', 'Home')}</span>
-                    </button>
-
-                    <button
-                      onClick={() => { setActiveScreen('forecast'); setIsChatOpen(false); setMobileMenuOpen(false); }}
-                      className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition ${activeScreen === 'forecast' ? 'text-emerald-600' : 'text-slate-400'}`}
-                    >
-                      <TrendingUp className={`w-5 h-5 ${activeScreen === 'forecast' ? 'stroke-[2.5]' : ''}`} />
-                      <span className="text-[9px] font-bold">{t('interactivePredictions', 'Forecast')}</span>
-                    </button>
-
-                    {/* Center AI Button */}
-                    <button
-                      onClick={() => { setIsChatOpen(!isChatOpen); setMobileMenuOpen(false); }}
-                      className="w-13 h-13 bg-gradient-to-br from-emerald-500 to-emerald-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-emerald-300 transition active:scale-95 border-4 border-white -mt-5 w-14 h-14"
-                    >
-                      <span className="text-2xl">🤖</span>
-                    </button>
-
-                    <button
-                      onClick={() => { setActiveScreen('transactions'); setIsChatOpen(false); setMobileMenuOpen(false); }}
-                      className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition ${activeScreen === 'transactions' ? 'text-emerald-600' : 'text-slate-400'}`}
-                    >
-                      <Receipt className={`w-5 h-5 ${activeScreen === 'transactions' ? 'stroke-[2.5]' : ''}`} />
-                      <span className="text-[9px] font-bold">{t('passbook', 'Ledger')}</span>
-                    </button>
-
-                    <button
-                      onClick={() => { setMobileMenuOpen(!mobileMenuOpen); setIsChatOpen(false); }}
-                      className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition ${mobileMenuOpen ? 'text-emerald-600' : 'text-slate-400'}`}
-                    >
-                      <MoreVertical className={`w-5 h-5 ${mobileMenuOpen ? 'stroke-[2.5]' : ''}`} />
-                      <span className="text-[9px] font-bold">More</span>
-                    </button>
-                  </div>
-                </>
-              )}
-
+              {/* Bottom Nav Bar completely removed for unified desktop/mobile website experience */}
             </div>
 
           </div>
