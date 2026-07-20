@@ -14,7 +14,7 @@
 
 ---
 
-## 📌 Problem Statement & Motivation
+## Executive Summary & Motivation
 
 In India's rural economy, over **100 million micro-entrepreneurs** — including dairy farmers, kirana store owners, poultry operators, agri-traders, and local artisans — operate on hyper-local cash flows. Despite generating steady revenue, they face critical financial vulnerability due to:
 
@@ -23,40 +23,40 @@ In India's rural economy, over **100 million micro-entrepreneurs** — including
 3. **Debt Trap & EMI Misalignment**: High-interest local loans or unaligned EMIs trigger sudden cash shortfalls, leading to default risks despite underlying business viability.
 4. **Language & Digital Literacy Barriers**: Traditional banking apps are complex, text-heavy, and built primarily in English, alienating regional language speakers.
 
-### 💡 Executive Solution Summary
+### System Solution
 
 **GramPulse AI** bridges this gap by acting as an **intelligent financial co-pilot** for rural micro-enterprises. It passively ingests transaction data via bank SMS alerts and RBI Account Aggregator consent, runs **ARIMA time-series models** to forecast 30-to-90-day cash runways, simulates weather and mandi price shocks, and provides real-time debt restructuring advice in **5 regional languages** with voice companion support.
 
 ---
 
-## 💻 Technology Stack
+## Technology Stack
 
-### 🖥️ Frontend
+### Frontend
 - **Next.js (React)** — Server-Side Rendering & Client Dashboard Framework
 - **TypeScript** — End-to-End Type Safety & Interface Contracts
 - **Tailwind CSS** — Utility-First Styling System & Design System
 - **ShadCN UI** — Accessible & High-Performance UI Component Library
 
-### 📱 Mobile App
+### Mobile App
 - **Flutter** — Cross-Platform Mobile Application Architecture
 - **Hive / SQLite** — On-Device Offline Storage & Local Caching Layer
 
-### ⚙️ Backend Architecture
+### Backend Architecture
 - **Node.js** — Asynchronous High-Throughput Server Runtime
 - **NestJS** — Enterprise-Grade Scalable Modular Framework
 - **REST API** — Structured API Contract & Endpoint Map
 
-### 🔒 Authentication & Access Control
+### Authentication & Access Control
 - **Firebase Authentication** — Phone OTP & Federated Identity Verification
 - **JWT (JSON Web Tokens)** — Stateless Secure Session Management
 - **OTP Login** — Passwordless Frictionless Rural Authentication
 
-### 🗄️ Database & Cloud Storage
+### Database & Cloud Storage
 - **PostgreSQL** — Primary Relational Data Store
 - **Redis** — In-Memory High-Speed Caching & Session Storage
 - **AWS S3 / Cloudinary** — Cloud Object Storage for Media & Reports
 
-### 🧠 Artificial Intelligence & Machine Learning
+### Artificial Intelligence & Machine Learning
 - **OpenAI GPT-4o / Gemini API** — Natural Language Financial Advisory
 - **OpenAI Whisper** — Multilingual Speech-to-Text (`STT`) Transcription Engine
 - **Google Translate API** — Dynamic Regional Language Localization
@@ -64,27 +64,27 @@ In India's rural economy, over **100 million micro-entrepreneurs** — including
 - **Scikit-learn / XGBoost** — Commodity Price Forecasting & Demand Modeling
 - **TensorFlow / LightFM** — Recommendation System for Government Schemes
 
-### 🔍 Search & Communication Infrastructure
+### Search & Communication Infrastructure
 - **Elasticsearch** — High-Performance Log & Transaction Search Index
 - **Socket.IO** — Real-Time WebSockets & Live Alert Streaming
 
-### 💳 Payments & Logistics
+### Payments & Logistics
 - **Razorpay** — Digital Merchant Payment Gateway
 - **Shiprocket API** — Automated Logistics & Fulfillment Integration
 
-### 🔔 Notifications
+### Notifications
 - **Firebase Cloud Messaging (FCM)** — Push Notifications & SMS Dispatch
 
-### 📊 Business Intelligence & Analytics
+### Business Intelligence & Analytics
 - **Chart.js** — Interactive Financial Trend Visualizations
 - **Google Analytics** — User Journey Analytics & Conversion Funnels
 
-### ☁️ Cloud Infrastructure & DevOps
+### Cloud Infrastructure & DevOps
 - **AWS (EC2, RDS, S3, CloudFront)** — Enterprise Cloud Infrastructure
 - **Docker** — Containerized Microservices Ecosystem
 - **GitHub Actions** — Continuous Integration & Continuous Deployment (`CI/CD`)
 
-### 🛡️ Security & Compliance
+### Security & Compliance
 - **HTTPS (SSL/TLS)** — End-to-End Encryption
 - **JWT & RBAC** — Fine-Grained Role-Based Access Control
 - **bcrypt** — Password Hashing Standard
@@ -92,15 +92,15 @@ In India's rural economy, over **100 million micro-entrepreneurs** — including
 
 ---
 
-## 📊 Core Features & Capabilities
+## Core Features & Capabilities
 
 | Module | Purpose | Technical Implementation |
 |:---|:---|:---|
-| **Main Enterprise Dashboard** | Comprehensive financial overview displaying Health Score, Cash Runway, DTI Ratio, and active advisories. | Real-time status indicators (`🟢 SAFE`, `🟡 WARNING`, `🔴 DANGER`). |
+| **Main Enterprise Dashboard** | Comprehensive financial overview displaying Health Score, Cash Runway, DTI Ratio, and active advisories. | Real-time status indicators (`SAFE`, `WARNING`, `CRITICAL`). |
 | **Cash Flow Forecast & Simulator** | Interactive 30-day projection curve with stress-testing scenario sliders. | Dynamic simulation of milk fat drops, feed inflation, and weather delays. |
 | **ARIMA Risk Analysis** | Decomposes financial health into 4 core risk drivers with automated AI diagnosis. | Combines ARIMA statistical models with LLM root-cause analysis. |
 | **AI Debt Repayment Advisory** | Matches projected cash flow against upcoming EMI due dates to calculate net cash safety. | Cash-flow matching algorithm with debt prioritization queue. |
-| **Mandi Price Intelligence** | Live APMC market commodity rates (Milk, Wheat, Cotton, Rice, Vegetables). | Price trend indicators (▲, ▼, ●) and inter-mandi comparison tables. |
+| **Mandi Price Intelligence** | Live APMC market commodity rates (Milk, Wheat, Cotton, Rice, Vegetables). | Price trend indicators (Upward, Downward, Stable) and inter-mandi comparison tables. |
 | **IMD Climate & Weather Portal** | 7-day temperature & rainfall forecast with cattle thermal stress yield loss calculator. | Calculates specific daily litres output loss for dairy livestock. |
 | **Transaction Passbook & Ingress** | Digital ledger auto-parsed from bank SMS and UPI payment notifications. | Zero-friction transaction entry with duplicate detection. |
 | **Government Scheme Matcher** | AI-curated eligibility checker for PM Mudra, PM-KISAN, AHIDF, and CGTMSE. | Automated eligibility scoring & application guides. |
@@ -109,7 +109,7 @@ In India's rural economy, over **100 million micro-entrepreneurs** — including
 
 ---
 
-## 🌐 Regional Language Support
+## Regional Language Support
 
 GramPulse AI supports **5 major Indian languages**:
 - **English** (`en`)
@@ -120,16 +120,16 @@ GramPulse AI supports **5 major Indian languages**:
 
 ---
 
-## 📐 Mathematical Models & Analytical Logic
+## Mathematical Models & Analytical Logic
 
 ### 1. Financial Health Score Index
 $$\text{Health Score} = 100 - (30 - \text{Runway Days}) \times 2 - (\text{DTI Ratio} - 40) \times 0.5$$
 
 - **Range**: $0 \text{ to } 100$
 - **Classification**:
-  - `🟢 GREEN (Healthy)`: $\text{Score} \ge 85$
-  - `🟡 YELLOW (Warning)`: $70 \le \text{Score} < 85$
-  - `🔴 RED (Critical Risk)`: $\text{Score} < 70$
+  - `GREEN (Healthy)`: $\text{Score} \ge 85$
+  - `YELLOW (Warning)`: $70 \le \text{Score} < 85$
+  - `RED (Critical Risk)`: $\text{Score} < 70$
 
 ---
 
@@ -152,14 +152,14 @@ $$\text{Yield Loss \%} = \begin{cases} 0\% & \text{if Temperature } < 35^\circ\t
 
 ---
 
-## 🚀 Future Roadmap & Innovations
+## Future Roadmap & Innovations
 
 - **Blockchain Integration (Hyperledger Fabric / Polygon)** — Immutable cryptographic ledger for credit identity verification & peer-to-peer micro-lending.
 - **QR Code & NFC Integration** — Instant offline payment verification & receipt digitization at local APMC mandis.
 
 ---
 
-## 🛠️ Local Environment & Setup Guide
+## Local Environment & Setup Guide
 
 ### Prerequisites
 - **Node.js**: `v18.0.0` or higher
@@ -200,7 +200,7 @@ npm run dev
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the **Apache 2.0 License**.
 
